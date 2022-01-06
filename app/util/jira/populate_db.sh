@@ -76,7 +76,7 @@ if [[ ${jsm} == 1 && ${small} == 1 ]]; then
   DATASETS_SIZE="small"
 fi
 if [[ ${jsm} == 1 ]]; then
-DB_DUMP_NAME="db.insight_dump"
+DB_DUMP_NAME="db_insight.dump"
 DB_DUMP_URL="${DATASETS_AWS_BUCKET}/${JIRA_VERSION}/${DATASETS_SIZE}/${DB_DUMP_NAME}"
 fi
 DB_DUMP_NAME="db.dump"
