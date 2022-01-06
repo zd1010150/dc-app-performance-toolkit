@@ -78,10 +78,10 @@ fi
 if [[ ${jsm} == 1 ]]; then
 DB_DUMP_NAME="db_insight.dump"
 DB_DUMP_URL="${DATASETS_AWS_BUCKET}/${JIRA_VERSION}/${DATASETS_SIZE}/${DB_DUMP_NAME}"
-fi
+else
 DB_DUMP_NAME="db.dump"
 DB_DUMP_URL="${DATASETS_AWS_BUCKET}/${JIRA_VERSION}/${DATASETS_SIZE}/${DB_DUMP_NAME}"
-
+fi
 ###################    End of variables section  ###################
 
 # Custom version check
