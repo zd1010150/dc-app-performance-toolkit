@@ -75,13 +75,9 @@ if [[ ${jsm} == 1 && ${small} == 1 ]]; then
   # Only JSM supports "small" dataset
   DATASETS_SIZE="small"
 fi
-if [[ ${jsm} == 1 ]]; then
 DB_DUMP_NAME="db_insight.dump"
 DB_DUMP_URL="${DATASETS_AWS_BUCKET}/${JIRA_VERSION}/${DATASETS_SIZE}/${DB_DUMP_NAME}"
-else
-DB_DUMP_NAME="db.dump"
-DB_DUMP_URL="${DATASETS_AWS_BUCKET}/${JIRA_VERSION}/${DATASETS_SIZE}/${DB_DUMP_NAME}"
-fi
+
 ###################    End of variables section  ###################
 
 # Custom version check
@@ -216,7 +212,6 @@ fi
 
 echo "Step5: Stop Jira"
   sudo systemctl stop jira
-
 
 echo "Step6: Download database dump"
 rm -rf ${DB_DUMP_NAME}
