@@ -34,10 +34,8 @@ DB_CONFIG="/var/atlassian/application-data/jira/dbconfig.xml"
 # Depending on Jira installation directory
 JIRA_CURRENT_DIR="/opt/atlassian/jira-software/current"
 START_JIRA="${JIRA_CURRENT_DIR}/bin/start-jira.sh"
-CATALINA_PID_FILE="${JIRA_CURRENT_DIR}/work/catalina.pid"
 JIRA_SETENV_FILE="${JIRA_CURRENT_DIR}/bin/setenv.sh"
 JIRA_VERSION_FILE="/media/atl/jira/shared/jira-software.version"
-SHUT_DOWN_TOMCAT="${JIRA_CURRENT_DIR}/bin/shutdown.sh"
 
 # DB admin user name, password and DB name
 JIRA_DB_NAME="jira"
@@ -76,6 +74,10 @@ DATASETS_SIZE="large"
 if [[ ${jsm} == 1 && ${small} == 1 ]]; then
   # Only JSM supports "small" dataset
   DATASETS_SIZE="small"
+fi
+if [[ ${jsm} == 1 ]]; then
+DB_DUMP_NAME="db.insight_dump"
+DB_DUMP_URL="${DATASETS_AWS_BUCKET}/${JIRA_VERSION}/${DATASETS_SIZE}/${DB_DUMP_NAME}"
 fi
 DB_DUMP_NAME="db.dump"
 DB_DUMP_URL="${DATASETS_AWS_BUCKET}/${JIRA_VERSION}/${DATASETS_SIZE}/${DB_DUMP_NAME}"
@@ -213,40 +215,8 @@ if [[ -s ${JIRA_LICENSE_FILE} ]]; then
 fi
 
 echo "Step5: Stop Jira"
-if [[ ${jsm} == 1 ]]; then
   sudo systemctl stop jira
-else
-  CATALINA_PID=$(pgrep -f "catalina")
-  echo "CATALINA_PID=${CATALINA_PID}"
-  if [[ -z ${CATALINA_PID} ]]; then
-    echo "Jira is not running"
-    sudo su -c "rm -rf ${CATALINA_PID_FILE}"
-  else
-    echo "Stopping Jira"
-    if [[ ! -f "${CATALINA_PID_FILE}" ]]; then
-      echo "File created: ${CATALINA_PID_FILE}"
-      sudo su -c "echo ${CATALINA_PID} > ${CATALINA_PID_FILE}"
-    fi
-    sudo su -c "${SHUT_DOWN_TOMCAT}"
-    COUNTER=0
-    TIMEOUT=5
-    ATTEMPTS=30
-    while [[ "${COUNTER}" -lt "${ATTEMPTS}" ]]; do
-      if [[ -z $(pgrep -f "catalina") ]]; then
-        echo Jira is stopped
-        break
-      fi
-      echo "Waiting for Jira stop, attempt ${COUNTER}/${ATTEMPTS} at waiting ${TIMEOUT} seconds."
-      sleep ${TIMEOUT}
-      let COUNTER++
-    done
-    if [ ${COUNTER} -eq ${ATTEMPTS} ]; then
-      echo "Jira stop was not finished in $ATTEMPTS attempts with $TIMEOUT sec timeout."
-      echo "Try to rerun script."
-      exit 1
-    fi
-  fi
-fi
+
 
 echo "Step6: Download database dump"
 rm -rf ${DB_DUMP_NAME}
