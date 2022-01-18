@@ -45,7 +45,7 @@ JIRA_DB_PASS="Password1!"
 # Jira/JSM supported versions
 
 SUPPORTED_JIRA_VERSIONS=(8.13.13 8.20.1)
-SUPPORTED_JSM_VERSIONS=(4.13.13 4.20.1)
+SUPPORTED_JSM_VERSIONS=(4.13.13 4.20.3)
 
 SUPPORTED_VERSIONS=("${SUPPORTED_JIRA_VERSIONS[@]}")
 # JSM section
@@ -75,7 +75,7 @@ if [[ ${jsm} == 1 && ${small} == 1 ]]; then
   # Only JSM supports "small" dataset
   DATASETS_SIZE="small"
 fi
-DB_DUMP_NAME="db_insight.dump"
+DB_DUMP_NAME="db.dump"
 DB_DUMP_URL="${DATASETS_AWS_BUCKET}/${JIRA_VERSION}/${DATASETS_SIZE}/${DB_DUMP_NAME}"
 
 ###################    End of variables section  ###################
