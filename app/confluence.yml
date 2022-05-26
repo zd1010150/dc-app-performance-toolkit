@@ -41,6 +41,7 @@ services:
       - python util/pre_run/environment_checker.py
       - python util/pre_run/check_for_updates.py
       - python util/data_preparation/confluence_prepare_data.py
+      - sleep 60
     shutdown:
       - python util/post_run/jmeter_post_check.py
       - python util/jtl_convertor/jtls-to-csv.py kpi.jtl selenium.jtl
