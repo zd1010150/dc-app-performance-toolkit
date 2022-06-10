@@ -103,7 +103,7 @@ class Editor(BasePage):
         self.wait_until_clickable(EditorLocators.publish_button)
 
     def wait_for_page_loaded(self):
-        self.wait_for_editor_open()
+        self.wait_for_editor_open_ec_off()
         self.wait_until_clickable(EditorLocators.publish_button)
 
     def write_title(self):
@@ -128,6 +128,9 @@ class Editor(BasePage):
         self.wait_until_any_ec_text_presented_in_el(
             selector_text_list=[(EditorLocators.status_indicator, 'Ready to go'),
                                 (EditorLocators.status_indicator, 'Changes saved')])
+
+    def wait_for_editor_open_ec_off(self):
+        self.wait_until_visible(EditorLocators.title_field)
 
     def save_edited_page(self):
         self.get_element(EditorLocators.publish_button).click()

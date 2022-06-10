@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.2">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="upload_attachments" enabled="true">
       <stringProp name="TestPlan.comments">This test plan was created by the BlazeMeter converter v.2.4.18. Please contact support@blazemeter.com for further support.</stringProp>
@@ -3970,7 +3970,7 @@ if ( sleep_time &gt; 0 ) {
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;status&quot;:&quot;current&quot;,&quot;title&quot;:&quot;Performance Blog - ${p_new_file_name}&quot;,&quot;space&quot;:{&quot;key&quot;:&quot;${spaceKey}&quot;},&quot;body&quot;:{&quot;editor&quot;:{&quot;value&quot;:&quot;Test Performance Blog Page Content ${p_new_file_name}&quot;,&quot;representation&quot;:&quot;editor&quot;,&quot;content&quot;:{&quot;id&quot;:&quot;${ajs-content-id}&quot;}}},&quot;id&quot;:&quot;${ajs-content-id}&quot;,&quot;type&quot;:&quot;blogpost&quot;,&quot;version&quot;:{&quot;number&quot;:1,&quot;minorEdit&quot;:true,&quot;syncRev&quot;:&quot;0.mcPCPtDvwoayMR7zvuQSbf8.30&quot;}}</stringProp>
+                      <stringProp name="Argument.value">{&quot;status&quot;:&quot;current&quot;,&quot;title&quot;:&quot;Performance Blog - ${p_new_file_name}&quot;,&quot;space&quot;:{&quot;key&quot;:&quot;${spaceKey}&quot;},&quot;body&quot;:{&quot;editor&quot;:{&quot;value&quot;:&quot;Test Performance Blog Page Content ${p_new_file_name}&quot;,&quot;representation&quot;:&quot;editor&quot;,&quot;content&quot;:{&quot;id&quot;:&quot;${ajs-content-id}&quot;}}},&quot;id&quot;:&quot;${ajs-content-id}&quot;,&quot;type&quot;:&quot;blogpost&quot;}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -3979,8 +3979,8 @@ if ( sleep_time &gt; 0 ) {
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
-                <stringProp name="HTTPSampler.path">${application.postfix}/rest/api/content/${ajs-content-id}?status=draft</stringProp>
-                <stringProp name="HTTPSampler.method">PUT</stringProp>
+                <stringProp name="HTTPSampler.path">${application.postfix}/rest/api/content?status=draft</stringProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
                 <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -4035,6 +4035,12 @@ if ( sleep_time &gt; 0 ) {
                   <boolProp name="Assertion.assume_success">false</boolProp>
                   <intProp name="Assertion.test_type">16</intProp>
                 </ResponseAssertion>
+                <hashTree/>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="get new ajs-content-id" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">ajs-content-id</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+                  <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                </JSONPostProcessor>
                 <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="680 ${x_new_title_blog}" enabled="true">
@@ -6106,8 +6112,8 @@ if ( sleep_time &gt; 0 ) {
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">${application.postfix}/rest/api/content/${ajs-content-id}?status=draft</stringProp>
-                <stringProp name="HTTPSampler.method">PUT</stringProp>
+                <stringProp name="HTTPSampler.path">${application.postfix}/rest/api/content?status=draft</stringProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
                 <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -6147,6 +6153,12 @@ String randomString = RandomStringUtils.random(randomStringLength, charset.toCha
 
 vars.put(&quot;page_title&quot;, &quot;jmeter_create_and_edit_page:create_page - &quot; + randomString)</stringProp>
                 </JSR223PreProcessor>
+                <hashTree/>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="get new ajs-content-id" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">ajs-content-id</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+                  <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                </JSONPostProcessor>
                 <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="1045 rest/mywork/latest/status/notification/count" enabled="true">
@@ -7724,13 +7736,13 @@ vars.put(&quot;page_title&quot;, &quot;jmeter_create_and_edit_page:create_page -
                 </HeaderManager>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="1470 rest/api/content/${ajs-content-id}?status=draft" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="1470 rest/api/content/${ajs-content-id}?status=current" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;status&quot;:&quot;current&quot;,&quot;title&quot;:&quot;${page_title}&quot;,&quot;space&quot;:{&quot;key&quot;:&quot;${space_key}&quot;},&quot;body&quot;:{&quot;editor&quot;:{&quot;value&quot;:&quot;&lt;div style=\&quot;display: none;\&quot;&gt;&lt;br /&gt;&lt;/div&gt;&lt;p&gt;${page_text}&lt;/p&gt;&quot;,&quot;representation&quot;:&quot;editor&quot;,&quot;content&quot;:{&quot;id&quot;:&quot;${ajs-content-id}&quot;}}},&quot;id&quot;:&quot;${ajs-content-id}&quot;,&quot;type&quot;:&quot;page&quot;,&quot;version&quot;:{&quot;number&quot;:2,&quot;message&quot;:&quot;&quot;,&quot;minorEdit&quot;:false,&quot;syncRev&quot;:&quot;0.oLWs6S5l3gY2mwHJiA9jHao.5&quot;},&quot;ancestors&quot;:[{&quot;id&quot;:&quot;${ajs-parent-page-id}&quot;,&quot;type&quot;:&quot;page&quot;}]}</stringProp>
+                      <stringProp name="Argument.value">{&quot;status&quot;:&quot;current&quot;,&quot;title&quot;:&quot;${page_title}&quot;,&quot;space&quot;:{&quot;key&quot;:&quot;${space_key}&quot;},&quot;body&quot;:{&quot;editor&quot;:{&quot;value&quot;:&quot;&lt;div style=\&quot;display: none;\&quot;&gt;&lt;br /&gt;&lt;/div&gt;&lt;p&gt;${page_text}&lt;/p&gt;&quot;,&quot;representation&quot;:&quot;editor&quot;,&quot;content&quot;:{&quot;id&quot;:&quot;${ajs-content-id}&quot;}}},&quot;id&quot;:&quot;${ajs-content-id}&quot;,&quot;type&quot;:&quot;page&quot;,&quot;version&quot;:{&quot;number&quot;:2,&quot;message&quot;:&quot;&quot;,&quot;minorEdit&quot;:false,&quot;syncRev&quot;:&quot;dummy-sync-rev&quot;},&quot;ancestors&quot;:[{&quot;id&quot;:&quot;${ajs-parent-page-id}&quot;,&quot;type&quot;:&quot;page&quot;}]}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -7739,7 +7751,7 @@ vars.put(&quot;page_title&quot;, &quot;jmeter_create_and_edit_page:create_page -
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">${application.postfix}/rest/api/content/${ajs-content-id}?status=draft</stringProp>
+                <stringProp name="HTTPSampler.path">${application.postfix}/rest/api/content/${ajs-content-id}?status=current</stringProp>
                 <stringProp name="HTTPSampler.method">PUT</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
